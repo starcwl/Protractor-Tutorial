@@ -1,4 +1,4 @@
-﻿
+
 
 标签（空格分隔）： Protractor
 
@@ -21,10 +21,10 @@ element中的方法分为element（ElementFinder）和element.all（ElementArray
            var ul2=ul1.clone();  
            expect(ul1.count()).toBe(ul2.count());  
                                          });  
-                          });                                                         
+              });                                                         
   ```
  
-2. all():调用此方法可以找到一个把当前元素作为起点的一个新的数组。方法结果返回一个包含当前数组子         元素的新的数组。
+2.all():调用此方法可以找到一个把当前元素作为起点的一个新的数组。方法结果返回一个包含当前数组子         元素的新的数组。
 ``` Protractor
 describe('test login module', function(){
   var time = new Date;
@@ -38,7 +38,7 @@ describe('test login module', function(){
   });
    });
 ```
-3. filter():通过这个filter方法是为了找到一组符合filter方法的一组元素，因为filter（）不能检索到列表中的  所有元素，所以它一般用于一个网页对象。
+3.filter():通过这个filter方法是为了找到一组符合filter方法的一组元素，因为filter（）不能检索到列表中的  所有元素，所以它一般用于一个网页对象。
 ``` Protractor
 describe('test login module', function(){
   var time = new Date;
@@ -54,7 +54,7 @@ describe('test login module', function(){
   });
    });
 ```
-4. get():通过索引找到数组中的一个元素，索引从０开始。
+4.get():通过索引找到数组中的一个元素，索引从０开始。
 ``` Protractor
 describe('test zhuye module', function(){
   var time = new Date;
@@ -86,7 +86,7 @@ describe('test zhuye module', function(){
   });
 });
 ```
-5. first():找到数组中的第一个元素。
+5.first():找到数组中的第一个元素。
 ``` Protractor
 describe('test zhuye module', function(){
   var time = new Date;
@@ -118,8 +118,8 @@ describe('test zhuye module', function(){
   });
 });
 ```
-6. last():找到数组中的最后一个元素。
-7. count():这个数组所代表的元素的个数，结果不一定是整型。它返回的是一个Promise对象不能直接用于四则运算。
+6.last():找到数组中的最后一个元素。
+7.count():这个数组所代表的元素的个数，结果不一定是整型。它返回的是一个Promise对象不能直接用于四则运算。
 ``` Protractor
 describe('test zhuye module', function(){
   var time = new Date;
@@ -169,13 +169,14 @@ describe('test zhuye module', function(){
   });
 });
 ```
-8. locator():返回最相关的定位说明。
-  ```Protractor
-  // returns by.css('#ID2')
-$('#ID1').$('#ID2').locator()
+8.locator():返回最相关的定位说明。
+```Protractor
 
-  ```
-9. each():通过each中定义的方法调用数组中的每个元素，然后输出方法的结果。
+  // returns by.css('#ID2')
+$('#ID1').$('#ID2').locator();
+
+```
+9.each():通过each中定义的方法调用数组中的每个元素，然后输出方法的结果。
 ``` Protractor
 describe('test zhuye module', function(){
   var time = new Date;
@@ -209,7 +210,7 @@ describe('test zhuye module', function(){
   });
 });
 ```
-10. map(): 对ElementArrayFinder的每个元素执行map中的方法，方法中ElementArrayFinder中的元素
+10.map(): 对ElementArrayFinder的每个元素执行map中的方法，方法中ElementArrayFinder中的元素
 作为第一个变量，元素索引作为第二个变量。
 
 ``` Protractor
