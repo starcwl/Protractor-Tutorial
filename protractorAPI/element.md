@@ -1,4 +1,4 @@
-
+﻿
 
 标签（空格分隔）： Protractor
 
@@ -10,23 +10,21 @@ element中的方法分为element（ElementFinder）和element.all（ElementArray
 #### element.all的方法：
 1. clone():实现对一个元素数组的简单复制。
 
-  ``` Protractor
-  
-      describe('test login module', function(){
-           var time = new Date;
-           console.log(time);
-           var testUrl = '/bd/login';
-           it('clone',function(){
-          browser.get('http://www.aihangyun.com/bd/#');
-         var ul1=element.all(by.css('.dropdown-menu scrollable-menu'));
-         var ul2=ul1.clone();
-        expect(ul1.count()).toBe(ul2.count());
-                                         });
-                          });  
-                                                              
+  ``` Protractor  
+      describe('test login module', function(){  
+           var time = new Date;  
+           console.log(time);  
+           var testUrl = '/bd/login';  
+           it('clone',function(){  
+           browser.get('http://www.aihangyun.com/bd/#');  
+           var ul1=element.all(by.css('.dropdown-menu scrollable-menu'));  
+           var ul2=ul1.clone();  
+           expect(ul1.count()).toBe(ul2.count());  
+                                         });  
+                          });                                                         
   ```
  
-2.  all():调用此方法可以找到一个把当前元素作为起点的一个新的数组。方法结果返回一个包含当前数组子         元素的新的数组。
+2. all():调用此方法可以找到一个把当前元素作为起点的一个新的数组。方法结果返回一个包含当前数组子         元素的新的数组。
 ``` Protractor
 describe('test login module', function(){
   var time = new Date;
