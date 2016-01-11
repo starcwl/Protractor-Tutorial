@@ -1,4 +1,4 @@
-
+# Protractor API
 
 标签（空格分隔）： Protractor
 
@@ -8,23 +8,22 @@
  element也可以称为ElementFinder，它是ElementArrayFinder（element.all)里的一个单个元素，因此用ElementFinder可以做的用ElementArrayFinder也可以做。 element可以看作是实际网页中的元素，任何你对网页元素的操作都可以通过对它的操作实现，每个动作的操作结果都可以通过element中的方法获取。
 element中的方法分为element（ElementFinder）和element.all（ElementArrayFinder）的方法。
 #### element.all的方法：
-1. clone():实现对一个元素数组的简单复制。
-
-  ``` Protractor  
-      describe('test login module', function(){  
-           var time = new Date;  
-           console.log(time);  
-           var testUrl = '/bd/login';  
-           it('clone',function(){  
-           browser.get('http://www.aihangyun.com/bd/#');  
-           var ul1=element.all(by.css('.dropdown-menu scrollable-menu'));  
-           var ul2=ul1.clone();  
-           expect(ul1.count()).toBe(ul2.count());  
-                                         });  
-              });                                                         
-  ```
- 
-2.all():调用此方法可以找到一个把当前元素作为起点的一个新的数组。方法结果返回一个包含当前数组子         元素的新的数组。
+1.clone():实现对一个元素数组的简单复制。
+``` Protractor
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+  it('clone',function(){
+  browser.get('http://www.aihangyun.com/bd/#');
+  var ul1=element.all(by.css('.dropdown-menu scrollable-menu'));
+  var ul2=ul1.clone();
+  //console.log(ul2);
+  expect(ul1.count()).toBe(ul2.count());
+  });
+   });
+```
+2.all():调用此方法可以找到一个把当前元素作为起点的一个新的数组。方法结果返回一个包含当前数组子元素的新的数组。
 ``` Protractor
 describe('test login module', function(){
   var time = new Date;
@@ -38,7 +37,7 @@ describe('test login module', function(){
   });
    });
 ```
-3.filter():通过这个filter方法是为了找到一组符合filter方法的一组元素，因为filter（）不能检索到列表中的  所有元素，所以它一般用于一个网页对象。
+3.filter():通过这个filter方法是为了找到一组符合filter方法的一组元素，因为filter（）不能检索到列表中的所有元素，所以它一般用于一个网页对象。
 ``` Protractor
 describe('test login module', function(){
   var time = new Date;
@@ -119,7 +118,6 @@ describe('test zhuye module', function(){
 });
 ```
 6.last():找到数组中的最后一个元素。
-
 7.count():这个数组所代表的元素的个数，结果不一定是整型。它返回的是一个Promise对象不能直接用于四则运算。
 ``` Protractor
 describe('test zhuye module', function(){
@@ -172,9 +170,8 @@ describe('test zhuye module', function(){
 ```
 8.locator():返回最相关的定位说明。
 ```Protractor
-
   // returns by.css('#ID2')
-$('#ID1').$('#ID2').locator();
+$('#ID1').$('#ID2').locator()
 
 ```
 9.each():通过each中定义的方法调用数组中的每个元素，然后输出方法的结果。
