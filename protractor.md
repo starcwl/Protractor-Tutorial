@@ -160,3 +160,4 @@ describe('test login page', function(){
     expect(browser.getCurrentUrl()).toBe(targetUrl2);  
   });  
   });    
+王永鹏
