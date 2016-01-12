@@ -1,26 +1,7 @@
 ##locator
 ###by
-Protractor定位器。它提供了很多在Angular应用中寻找元素的方法，例如by.binding(),by.model()等等。
 #####addLocator()
-为实例增加一个可以通过by方法找到元素的定位。
 #####binding()
-这是AngularJs版本的方法，可以找到通过{{}｝定义的网页元素。
-```Protractor
-view:
-<span>{{person.name}}</span>
-<span ng-bind="person.email"></span>
----------------------------------------------------------------
----------------------------------------------------------------
-code:
-var span1 = element(by.binding('person.name'));
-expect(span1.getText()).toBe('Foo');
-var span2 = element(by.binding('person.email'));
-expect(span2.getText()).toBe('foo@bar.com');
-var span1alt = element(by.binding('name'));
-expect(span1alt.getText()).toBe('Foo');
-var deprecatedSyntax = element(by.binding('{{person.name}}'));
-
-```
 #####exactBinding()
 #####model()
 #####buttonText()
@@ -40,11 +21,56 @@ var deprecatedSyntax = element(by.binding('{{person.name}}'));
 #####tagName()
 #####xpath
 ###by的方法
-######addLocator()  
-######binding()  
-######exactBinding()  
-######model()  
+Protractor定位器。它提供了很多在Angular应用中寻找元素的方法，例如by.binding(),by.model()等等。
+######addLocator()
+为实例增加一个可以通过by方法找到元素的定位。
+```Protractor
+// Add the custom locator.
+by.addLocator('buttonTextSimple',
+    function(buttonText, opt_parentElement, opt_rootSelector) {
+  // This function will be serialized as a string and will execute in the
+  // browser. The first argument is the text for the button. The second
+  // argument is the parent element, if any.
+  var using = opt_parentElement,
+      buttons = using.querySelectorAll('button');
 
+  // Return an array of buttons with the text.
+  return Array.prototype.filter.call(buttons, function(button) {
+    return button.textContent === buttonText;
+  });
+});
+
+// Use the custom locator.
+element(by.buttonTextSimple('Go!')).click();
+```
+######binding()  
+这是AngularJs版本的方法，可以找到通过{{}｝定义的网页元素。
+```Protractor
+var span1 = element(by.binding('person.name'));
+expect(span1.getText()).toBe('Foo');
+
+var span2 = element(by.binding('person.email'));
+expect(span2.getText()).toBe('foo@bar.com');
+
+// You can also use a substring for a partial match
+var span1alt = element(by.binding('name'));
+expect(span1alt.getText()).toBe('Foo');
+
+// This works for sites using Angular 1.2 but NOT 1.3
+var deprecatedSyntax = element(by.binding('{{person.name}}'));
+```
+######exactBinding()  
+找到一个具体的绑定元素
+```Protractor
+expect(element(by.exactBinding('person.name')).isPresent()).toBe(true);
+expect(element(by.exactBinding('person-email')).isPresent()).toBe(true);
+expect(element(by.exactBinding('person')).isPresent()).toBe(false);
+expect(element(by.exactBinding('person_phone')).isPresent()).toBe(true);
+expect(element(by.exactBinding('person_phone|uppercase')).isPresent()).toBe(true);
+expect(element(by.exactBinding('phone')).isPresent()).toBe(false);
+```
+######model()  
+找到使用ng-model表达式的元素
 ```Protractor
 describe('model', function(){  
   var time = new Date;  
@@ -87,7 +113,7 @@ describe('model', function(){
   });  
   });  
 ```
-######buttonText()
+######buttonText():
 获得按钮中的文本信息
 ```Protractor
 describe('buttonText', function(){  
@@ -126,6 +152,7 @@ describe('buttonText', function(){
   });  
 ```
 ######repeater()：
+找到中继器里面的元素
 ```Protractor
 describe('repeater', function(){  
   var time = new Date;  
@@ -181,8 +208,30 @@ describe('repeater', function(){
   });  
 ```
 ######exactRepeater()  
+找到具体哪一个中继器
+```Protractor
+Example
+<li ng-repeat="person in peopleWithRedHair"></li>
+<li ng-repeat="car in cars | orderBy:year"></li>
+Code
+expect(element(by.exactRepeater('person in peopleWithRedHair')).isPresent()).toBe(true);
+expect(element(by.exactRepeater('person in people')).isPresent()).toBe(false);
+expect(element(by.exactRepeater('car in cars')).isPresent()).toBe(true);
+```
 ######cssContainingText()  
+找到想要得到的具体的那个css元素
+```Protractor
+Example
+<ul>
+  <li class="pet">Dog</li>
+  <li class="pet">Cat</li>
+</ul>
+Code
+// Returns the li for the dog, but not cat.
+var dog = element(by.cssContainingText('.pet', 'Dog'));
+```
 ######options()  
+找到使用ng-options表达式的元素
 ```Protractor
 describe('test login page', function(){  
   var time = new Date;  
@@ -215,7 +264,22 @@ it(' into my work',function(){
   });  
 ```
 ######deepCss()  
-
+在shadow下使用css选择器找到元素
+```Protractor
+Example
+<div>
+  <span id="outerspan">
+  <"shadow tree">
+    <span id="span1"></span>
+    <"shadow tree">
+      <span id="span2"></span>
+    </>
+  </>
+</div>
+Code
+var spans = element.all(by.deepCss('span'));
+expect(spans.count()).toEqual(3);
+```
 ###Inherited from webdriver.By的方法
 
 ######className()
@@ -243,7 +307,7 @@ it(' into my work',function(){
   });  
   });  
 ```
-######css()
+######css():
 使用css选择器定位元素  
 ```Protractor
 describe('test login page', function(){  
@@ -268,10 +332,10 @@ describe('test login page', function(){
   });  
   });  
 ```
-######id()
+######id()：
 通过id名定位元素  
 
-######linkText()
+######linkText():
 获得文本的链接
 ```Protractor
 describe('linkText', function(){  
@@ -296,7 +360,7 @@ describe('linkText', function(){
   });  
   });   
 ```
-######js()
+######js()：
 通过一个JavaScript表达式定位一个元素。这个表达式的结果必须是一个元素或元素的列表。  
 
 ######name()
