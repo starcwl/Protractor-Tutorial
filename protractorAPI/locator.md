@@ -1,4 +1,4 @@
-##locators
+##locator
 ###by
 #####addLocator()
 #####binding()
@@ -25,6 +25,7 @@
 ######binding()  
 ######exactBinding()  
 ######model()  
+```Protractor
 describe('model', function(){  
   var time = new Date;  
   console.log(time);  
@@ -65,7 +66,9 @@ describe('model', function(){
     element(by.buttonText('Close')).click();  
   });  
   });  
+```
 ######buttonText():获得按钮中的文本信息
+```Protractor
 describe('buttonText', function(){  
   var time = new Date;  
   console.log(time);  
@@ -81,7 +84,9 @@ describe('buttonText', function(){
     expect(browser.getCurrentUrl()).toBe(targetUrl);  
   });  
   });  
+```
 ######partialButtonText()通过按钮部分文本定位按钮  
+```Protractor
 describe('buttonText', function(){  
   var time = new Date;  
   console.log(time);  
@@ -97,7 +102,9 @@ describe('buttonText', function(){
     expect(browser.getCurrentUrl()).toBe(targetUrl);  
   });  
   });  
+```
 ######repeater()：
+```Protractor
 describe('repeater', function(){  
   var time = new Date;  
   console.log(time);  
@@ -150,9 +157,11 @@ describe('repeater', function(){
     });  
   });  
   });  
+```
 ######exactRepeater()  
 ######cssContainingText()  
 ######options()  
+```Protractor
 describe('test login page', function(){  
   var time = new Date;  
   console.log(time);  
@@ -182,11 +191,13 @@ it(' into my work',function(){
     expect(options.get(1).getText()).toBe('更新时间');  
   });  
   });  
+```
 ######deepCss()  
 
 ###Inherited from webdriver.By的方法
 
 ######className()通过class名定位元素  
+```Protractor
 describe('test login page', function(){  
   var time = new Date;  
   console.log(time);  
@@ -208,7 +219,9 @@ it(' into my work',function(){
     expect(browser.getCurrentUrl()).toBe(targetUrl2);  
   });  
   });  
+```
 ######css():使用css选择器定位元素  
+```Protractor
 describe('test login page', function(){  
   var time = new Date;  
   console.log(time);  
@@ -230,9 +243,11 @@ describe('test login page', function(){
     expect(ul3.isDisplayed()).toBeTruthy();  
   });  
   });  
+```
 ######id()：通过id名定位元素  
 
 ######linkText():获得文本的链接
+```Protractor
 describe('linkText', function(){  
   var time = new Date;  
   console.log(time);  
@@ -254,9 +269,11 @@ describe('linkText', function(){
     expect(browser.getCurrentUrl()).toBe(targetUrl2);  
   });  
   });   
+```
 ######js()：通过一个JavaScript表达式定位一个元素。这个表达式的结果必须是一个元素或元素的列表。  
 
 ######name()通过name定位元素  
+```Protractor
 describe('buttonText', function(){  
   var time = new Date;  
   console.log(time);  
@@ -272,7 +289,9 @@ describe('buttonText', function(){
     expect(browser.getCurrentUrl()).toBe(targetUrl);  
   });  
   });
+```
 ######partialLinkText()通过链接中的部分文本获得文本链接  
+```Protractor
 describe('test login page', function(){  
   var time = new Date;  
   console.log(time);  
@@ -294,7 +313,9 @@ it(' into my work',function(){
     expect(browser.getCurrentUrl()).toBe(targetUrl2);  
   });  
   });  
+```
 ######tagName()通过标签名定位元素  
+```Protractor
 describe('test login page', function(){  
   var time = new Date;  
   console.log(time);  
@@ -324,4 +345,5 @@ it(' into my work',function(){
     expect(options.get(1).getText()).toBe('更新时间');  
   });  
   });  
+```
 ######xpath()通过xpath选择器定位元素  
