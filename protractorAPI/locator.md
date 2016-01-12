@@ -1,8 +1,30 @@
-#by的方法
-###1.addLocator()  
-###2.binding()  
-###3.exactBinding()  
-###4.model()  
+##locators
+###by
+#####addLocator()
+#####binding()
+#####exactBinding()
+#####model()
+#####buttonText()
+#####partialButtonText()
+#####repeater()
+#####exactRepeater()
+#####cssContainingext()
+#####options()
+#####deepCss()
+#####className()
+#####css()
+#####id()
+#####linkText()
+#####js()
+#####name()
+#####partialLinkText()
+#####tagName()
+#####xpath
+###by的方法
+####1.addLocator()  
+####2.binding()  
+####3.exactBinding()  
+####4.model()  
 describe('model', function(){  
   var time = new Date;  
   console.log(time);  
@@ -43,7 +65,7 @@ describe('model', function(){
     element(by.buttonText('Close')).click();  
   });  
   });  
-###5.buttonText():获得按钮中的文本信息
+####5.buttonText():获得按钮中的文本信息
 describe('buttonText', function(){  
   var time = new Date;  
   console.log(time);  
@@ -59,8 +81,8 @@ describe('buttonText', function(){
     expect(browser.getCurrentUrl()).toBe(targetUrl);  
   });  
   });  
-###6.partialButtonText()  
-###7.repeater()：
+####6.partialButtonText()  
+####7.repeater()：
 describe('repeater', function(){
   var time = new Date;
   console.log(time);
@@ -113,17 +135,17 @@ describe('repeater', function(){
     }); 
   });
   });  
-###8.exactRepeater()  
-###9.cssContainingText()  
-###10.options()  
-###11.deepCss()  
+####8.exactRepeater()  
+####9.cssContainingText()  
+####10.options()  
+####11.deepCss()  
 
-#Inherited from webdriver.By的方法
+###Inherited from webdriver.By的方法
 
-###1.className()  
-###2.css()  
-###3.id()  
-###4.linkText:获得文本的链接()
+####1.className()  
+####2.css()  
+####3.id()  
+####4.linkText:获得文本的链接()
 describe('linkText', function(){  
   var time = new Date;  
   console.log(time);  
@@ -145,8 +167,8 @@ describe('linkText', function(){
     expect(browser.getCurrentUrl()).toBe(targetUrl2);  
   });  
   });   
-###5.js()  
-###6.name()  
-###7.partialLinkText()  
-###8.tagName()  
-###9.xpath()  
+####5.js()  
+####6.name()  
+####7.partialLinkText()  
+####8.tagName()  
+####9.xpath()  
