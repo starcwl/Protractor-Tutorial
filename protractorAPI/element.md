@@ -1,30 +1,32 @@
-
+﻿
 
 标签（空格分隔）： Protractor
 
 ---
-
+##内容目录
+[TOC]
 ## element(元素)：
  element也可以称为ElementFinder，它是ElementArrayFinder（element.all)里的一个单个元素，因此用ElementFinder可以做的用ElementArrayFinder也可以做。 element可以看作是实际网页中的元素，任何你对网页元素的操作都可以通过对它的操作实现，每个动作的操作结果都可以通过element中的方法获取。
 element中的方法分为element（ElementFinder）和element.all（ElementArrayFinder）的方法。
 #### element.all的方法：
-1. clone():实现对一个元素数组的简单复制。
-
-  ``` Protractor  
-      describe('test login module', function(){  
-           var time = new Date;  
-           console.log(time);  
-           var testUrl = '/bd/login';  
-           it('clone',function(){  
-           browser.get('http://www.aihangyun.com/bd/#');  
-           var ul1=element.all(by.css('.dropdown-menu scrollable-menu'));  
-           var ul2=ul1.clone();  
-           expect(ul1.count()).toBe(ul2.count());  
+###### clone()
+实现对一个元素数组的简单复制。
+``` Protractor  
+describe('test login module', function(){  
+     var time = new Date;  
+     console.log(time);  
+     var testUrl = '/bd/login';  
+     it('clone',function(){  
+     browser.get('http://www.aihangyun.com/bd/#');  
+     var ul1=element.all(by.css('.dropdown-menu scrollable-menu'));  
+     var ul2=ul1.clone();  
+    expect(ul1.count()).toBe(ul2.count());  
                                          });  
-              });                                                         
-  ```
+              });                                                      
+```
  
-2.all():调用此方法可以找到一个把当前元素作为起点的一个新的数组。方法结果返回一个包含当前数组子         元素的新的数组。
+###### all()
+调用此方法可以找到一个把当前元素作为起点的一个新的数组。方法结果返回一个包含当前数组子         元素的新的数组。
 ``` Protractor
 describe('test login module', function(){
   var time = new Date;
@@ -38,7 +40,8 @@ describe('test login module', function(){
   });
    });
 ```
-3.filter():通过这个filter方法是为了找到一组符合filter方法的一组元素，因为filter（）不能检索到列表中的  所有元素，所以它一般用于一个网页对象。
+###### filter()
+通过这个filter方法是为了找到一组符合filter方法的一组元素，因为filter（）不能检索到列表中的  所有元素，所以它一般用于一个网页对象。
 ``` Protractor
 describe('test login module', function(){
   var time = new Date;
@@ -54,7 +57,8 @@ describe('test login module', function(){
   });
    });
 ```
-4.get():通过索引找到数组中的一个元素，索引从０开始。
+###### get()
+通过索引找到数组中的一个元素，索引从０开始。
 ``` Protractor
 describe('test zhuye module', function(){
   var time = new Date;
@@ -86,7 +90,8 @@ describe('test zhuye module', function(){
   });
 });
 ```
-5.first():找到数组中的第一个元素。
+######first()
+找到数组中的第一个元素。
 ``` Protractor
 describe('test zhuye module', function(){
   var time = new Date;
@@ -118,9 +123,11 @@ describe('test zhuye module', function(){
   });
 });
 ```
-6.last():找到数组中的最后一个元素。
+######last()
+找到数组中的最后一个元素。
 
-7.count():这个数组所代表的元素的个数，结果不一定是整型。它返回的是一个Promise对象不能直接用于四则运算。
+###### count()
+这个数组所代表的元素的个数，结果不一定是整型。它返回的是一个Promise对象不能直接用于四则运算。
 ``` Protractor
 describe('test zhuye module', function(){
   var time = new Date;
@@ -170,14 +177,16 @@ describe('test zhuye module', function(){
   });
 });
 ```
-8.locator():返回最相关的定位说明。
+###### locator()
+返回最相关的定位说明。
 ```Protractor
 
   // returns by.css('#ID2')
 $('#ID1').$('#ID2').locator();
 
 ```
-9.each():通过each中定义的方法调用数组中的每个元素，然后输出方法的结果。
+######each()
+通过each中定义的方法调用数组中的每个元素，然后输出方法的结果。
 ``` Protractor
 describe('test zhuye module', function(){
   var time = new Date;
@@ -211,7 +220,8 @@ describe('test zhuye module', function(){
   });
 });
 ```
-10.map(): 对ElementArrayFinder的每个元素执行map中的方法，方法中ElementArrayFinder中的元素
+######map()
+对ElementArrayFinder的每个元素执行map中的方法，方法中ElementArrayFinder中的元素
 作为第一个变量，元素索引作为第二个变量。
 
 ``` Protractor
@@ -247,23 +257,27 @@ describe('test zhuye module', function(){
 });
 
 ```
-11.reduce():通过
+######reduce()
+通过
 
-12.evaluate():评估输入是否时当前元素的范围。
+###### evaluate()
+评估输入是否时当前元素的范围。
 
 ```Protractor
 <span id="foo">{{variableInScope}}</span>
 
 var value = element(by.id('foo')).evaluate('variableInScope');
 ```
-13.allowAnimation():确定动画在当前基础元素中是否允许
+######allowAnimation()
+确定动画在当前基础元素中是否允许
 
 ```Protractor
 element(by.css('body')).allowAnimations(false);
 
 ```
 ####element的方法：
-1.then():访问地层的actionResult ElementFinder。
+######then()
+访问地层的actionResult ElementFinder。
 
 ``` Protractor
 describe('test zhuye module', function(){
@@ -314,7 +328,8 @@ describe('test zhuye module', function(){
   });
 });
 ```
-2.getWebElement():返回ElementFinder所代表的web元素，如果不存在将会向WebDriver抛出错误。
+######getWebElement()
+返回ElementFinder所代表的web元素，如果不存在将会向WebDriver抛出错误。
 
 ``` Protractor
 describe('test zhuye module', function(){
@@ -341,14 +356,16 @@ describe('test zhuye module', function(){
 });
 
 ```
-3.$$和$; $$是找到一组元素，$是找到一个元素
+###### cssSelector
+$$是找到一组元素，$是找到一个元素
 
 ```Protractor
 var items = element(by.css('.parent')).$$('li')
 var child = element(by.css('.parent')).$('.child');
 
 ```
-４.isPresent():确定某个元素是否在页面上存在。
+######isPresent()
+确定某个元素是否在页面上存在。
 
 ```Protractor
 describe('test zhuye module', function(){
@@ -378,4 +395,5 @@ describe('test zhuye module', function(){
 });
 
 ```
-5.isElementPresent():和ElementFinder.isPresent()相同
+###### isElementPresent()
+和ElementFinder.isPresent()相同
