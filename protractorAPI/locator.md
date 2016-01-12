@@ -1,7 +1,26 @@
 ##locator
 ###by
+Protractor定位器。它提供了很多在Angular应用中寻找元素的方法，例如by.binding(),by.model()等等。
 #####addLocator()
+为实例增加一个可以通过by方法找到元素的定位。
 #####binding()
+这是AngularJs版本的方法，可以找到通过{{}｝定义的网页元素。
+```Protractor
+view:
+<span>{{person.name}}</span>
+<span ng-bind="person.email"></span>
+---------------------------------------------------------------
+---------------------------------------------------------------
+code:
+var span1 = element(by.binding('person.name'));
+expect(span1.getText()).toBe('Foo');
+var span2 = element(by.binding('person.email'));
+expect(span2.getText()).toBe('foo@bar.com');
+var span1alt = element(by.binding('name'));
+expect(span1alt.getText()).toBe('Foo');
+var deprecatedSyntax = element(by.binding('{{person.name}}'));
+
+```
 #####exactBinding()
 #####model()
 #####buttonText()
@@ -25,6 +44,7 @@
 ######binding()  
 ######exactBinding()  
 ######model()  
+
 ```Protractor
 describe('model', function(){  
   var time = new Date;  
@@ -67,7 +87,8 @@ describe('model', function(){
   });  
   });  
 ```
-######buttonText():获得按钮中的文本信息
+######buttonText()
+获得按钮中的文本信息
 ```Protractor
 describe('buttonText', function(){  
   var time = new Date;  
@@ -85,7 +106,8 @@ describe('buttonText', function(){
   });  
   });  
 ```
-######partialButtonText()通过按钮部分文本定位按钮  
+######partialButtonText()
+通过按钮部分文本定位按钮  
 ```Protractor
 describe('buttonText', function(){  
   var time = new Date;  
@@ -196,7 +218,8 @@ it(' into my work',function(){
 
 ###Inherited from webdriver.By的方法
 
-######className()通过class名定位元素  
+######className()
+通过class名定位元素  
 ```Protractor
 describe('test login page', function(){  
   var time = new Date;  
@@ -220,7 +243,8 @@ it(' into my work',function(){
   });  
   });  
 ```
-######css():使用css选择器定位元素  
+######css()
+使用css选择器定位元素  
 ```Protractor
 describe('test login page', function(){  
   var time = new Date;  
@@ -244,9 +268,11 @@ describe('test login page', function(){
   });  
   });  
 ```
-######id()：通过id名定位元素  
+######id()
+通过id名定位元素  
 
-######linkText():获得文本的链接
+######linkText()
+获得文本的链接
 ```Protractor
 describe('linkText', function(){  
   var time = new Date;  
@@ -270,9 +296,11 @@ describe('linkText', function(){
   });  
   });   
 ```
-######js()：通过一个JavaScript表达式定位一个元素。这个表达式的结果必须是一个元素或元素的列表。  
+######js()
+通过一个JavaScript表达式定位一个元素。这个表达式的结果必须是一个元素或元素的列表。  
 
-######name()通过name定位元素  
+######name()
+通过name定位元素  
 ```Protractor
 describe('buttonText', function(){  
   var time = new Date;  
@@ -290,7 +318,8 @@ describe('buttonText', function(){
   });  
   });
 ```
-######partialLinkText()通过链接中的部分文本获得文本链接  
+######partialLinkText()
+通过链接中的部分文本获得文本链接  
 ```Protractor
 describe('test login page', function(){  
   var time = new Date;  
@@ -314,7 +343,8 @@ it(' into my work',function(){
   });  
   });  
 ```
-######tagName()通过标签名定位元素  
+######tagName()
+通过标签名定位元素  
 ```Protractor
 describe('test login page', function(){  
   var time = new Date;  
@@ -346,4 +376,5 @@ it(' into my work',function(){
   });  
   });  
 ```
-######xpath()通过xpath选择器定位元素  
+######xpath()
+通过xpath选择器定位元素  
