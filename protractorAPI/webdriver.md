@@ -33,23 +33,23 @@ this.thenFinally = goog.bind(el.thenFinally, el);
 
 ######cancel
 ```Protractor
-
+ this.cancel = goog.bind(alert.cancel, alert);
 ```
 ######visPending
 ```Protractor
-
+  this.isPending = goog.bind(alert.isPending, alert);
 ```
 ######then
 ```Protractor
-
+this.then = goog.bind(alert.then, alert);
 ```
 ######thenCatch
 ```Protractor
-
+  this.thenCatch = goog.bind(alert.thenCatch, alert);
 ```
 ######thenFinally
 ```Protractor
-
+ this.thenFinally = goog.bind(alert.thenFinally, alert);
 ```
 ######getText
 推迟返回文本直到promise警示框已经被解决

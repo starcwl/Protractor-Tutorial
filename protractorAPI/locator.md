@@ -60,7 +60,7 @@ expect(span1alt.getText()).toBe('Foo');
 var deprecatedSyntax = element(by.binding('{{person.name}}'));
 ```
 ######exactBinding()  
-找到一个具体的绑定元素
+这是AngularJs版本的方法，可以找到通过{{}｝定义的网页元素，输入全称。
 ```Protractor
 expect(element(by.exactBinding('person.name')).isPresent()).toBe(true);
 expect(element(by.exactBinding('person-email')).isPresent()).toBe(true);
@@ -210,25 +210,52 @@ describe('repeater', function(){
 ######exactRepeater()  
 找到具体哪一个中继器
 ```Protractor
-Example
-<li ng-repeat="person in peopleWithRedHair"></li>
-<li ng-repeat="car in cars | orderBy:year"></li>
-Code
-expect(element(by.exactRepeater('person in peopleWithRedHair')).isPresent()).toBe(true);
-expect(element(by.exactRepeater('person in people')).isPresent()).toBe(false);
-expect(element(by.exactRepeater('car in cars')).isPresent()).toBe(true);
+describe('test login page', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+  });
+it('by.exactRepeater',function(){
+  expect(element(by.exactRepeater('page in pages track by $index')).isPresent()).toBe(false);
+
+});
+ });
+
+
 ```
 ######cssContainingText()  
 找到想要得到的具体的那个css元素
 ```Protractor
-Example
-<ul>
-  <li class="pet">Dog</li>
-  <li class="pet">Cat</li>
-</ul>
-Code
-// Returns the li for the dog, but not cat.
-var dog = element(by.cssContainingText('.pet', 'Dog'));
+describe('test login page', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+  });
+it('by.cssContainingText',function(){
+  browser.get('http://www.aihangyun.com/bd/#');
+  var title=element(by.cssContainingText('.dropdown','我的任务'));
+});
+ });
+
+
 ```
 ######options()  
 找到使用ng-options表达式的元素
@@ -334,7 +361,25 @@ describe('test login page', function(){
 ```
 ######id()：
 通过id名定位元素  
-
+describe('test login page', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+  });
+it('by.cssContainingText',function(){
+  browser.get('http://www.aihangyun.com/bd/#');
+  var title=element(by.id('bs-example-navbar-collapse-1'));
+});
+ });
 ######linkText():
 获得文本的链接
 ```Protractor
@@ -362,7 +407,12 @@ describe('linkText', function(){
 ```
 ######js()：
 通过一个JavaScript表达式定位一个元素。这个表达式的结果必须是一个元素或元素的列表。  
-
+webdriver.By.js = function(script, var_args) {
+  var args = goog.array.slice(arguments, 0);
+  return function(driver) {
+    return driver.executeScript.apply(driver, args);
+  };
+};
 ######name()
 通过name定位元素  
 ```Protractor
@@ -441,4 +491,4 @@ it(' into my work',function(){
   });  
 ```
 ######xpath()
-通过xpath选择器定位元素  
+通过xpath选择器定位元素
