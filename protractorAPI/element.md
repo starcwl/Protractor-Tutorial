@@ -291,23 +291,69 @@ describe('test zhuye module', function(){
     browser.get('http://www.aihangyun.com/bd/#');
   });
   it('should into my work',function(){
-   var ul1=element.all(by.css('.dropdown-menu scrollable-menu'));
-   var text=element(by.linkText('BDHotel'));
+    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
+    var text=element(by.linkText('我的任务'))  ;
     text.click();
-    expect(ul1.isDisplayed()).toBeTruthy();
-    var a=ul1.map(function(elem,index){
-    	return{
-    		index
-    	};
+    expect(browser.getCurrentUrl()).toBe(targetUrl2);
+    var h1=element(by.tagName('h1'));
+    expect(h1.getText()).toBe('酒店列表(0)');
+    var label=element(by.tagName('label'));
+    expect(label.getText()).toBe('排序:');
+    var options=element.all(by.options('field.label for field in orderByFields'));
+    var intems=options.map(function(elem,index){
+      return {
+        index:index
+      }
     });
-    expect(a).toEqual([0]);
+    expect(intems).toEqual([{index: 0},{index:1}]);
+    expect(options.count()).toBe(2);
+    expect(options.get(0).getText()).toBe('名称');
+    expect(options.get(1).getText()).toBe('更新时间');
   });
 });
-
 ```
 ######reduce()
-通过
-
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ beforeEach(function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+    browser.get('http://www.aihangyun.com/bd/#');
+  });
+  it('should into my work',function(){
+    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
+    var text=element(by.linkText('我的任务'))  ;
+    text.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl2);
+    var h1=element(by.tagName('h1'));
+    expect(h1.getText()).toBe('酒店列表(0)');
+    var label=element(by.tagName('label'));
+    expect(label.getText()).toBe('排序:');
+    var options=element.all(by.options('field.label for field in orderByFields'));
+    var intems=options.reduce(function(acc,elem){
+      return elem.getText().then(function(text){
+        return acc + text + '';
+      });
+    },'');
+    
+    expect(intems).toEqual('名称更新时间';
+    expect(options.count()).toBe(2);
+    expect(options.get(0).getText()).toBe('名称');
+    expect(options.get(1).getText()).toBe('更新时间');
+  });
+});
+```
 ###### evaluate()
 评估输入是否时当前元素的范围。
 

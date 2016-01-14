@@ -16,31 +16,8 @@ describe('test login module', function(){
     browser.get(testUrl);
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
-    var a=element(by.buttonText('登录'));
-    a.click().cancle;
-    expect(browser.getCurrentUrl()).toBe(targetUrl);
-    var h1=element(by.css('.page-header'));
-    expect(h1.getText()).toBe('AiHang Business Development Management Console');
-  });
-});
-```
-######isPending
-未解决的
-```Protractor
-describe('test login module', function(){
-  var time = new Date;
-  console.log(time);
-  var testUrl = '/bd/login';
- it('should login with correct account name & password', function(){
-    var name = 'chenwulin@aihanginns.com';
-    var pwd = 'helloworld';
-    var targetUrl = 'http://www.aihangyun.com/bd/';
-    browser.get(testUrl);
-    element(by.name('email')).sendKeys(name);
-    element(by.name('password')).sendKeys(pwd);
-    var a=element(by.buttonText('登录'));
-    var d=a.click().isPending;
-    //console.log(d);
+    var a=browser.findElement(by.buttonText('登录')).click();
+    a.Pending();
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -60,9 +37,8 @@ describe('test login module', function(){
     browser.get(testUrl);
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
-    var a=element(by.buttonText('登录'));
-    var d =a.click().then;
-    console.log(d);
+    var a=browser.findElement(by.buttonText('登录')).click();
+    a.then();
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -82,9 +58,8 @@ describe('test login module', function(){
     browser.get(testUrl);
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
-    var a=element(by.buttonText('登录'));
-    var d =a.click().thenCatch;
-    console.log(d);
+    var a=browser.findElement(by.buttonText('登录')).click();
+    a.thenCatch();
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -104,9 +79,8 @@ describe('test login module', function(){
     browser.get(testUrl);
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
-    var a=element(by.buttonText('登录'));
-    var d =a.click().thenFinally;
-    console.log(d);
+    var a=browser.findElement(by.buttonText('登录')).click();
+    a.thenFinally();
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -127,9 +101,8 @@ describe('test login module', function(){
     browser.get(testUrl);
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
-    var a=element(by.buttonText('登录'));
-    var d =a.click().getId;
-     console.log(d);
+    var a=browser.findElement(by.buttonText('登录')).click();
+    a.getId();
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
