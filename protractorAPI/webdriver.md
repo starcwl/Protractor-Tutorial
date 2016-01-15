@@ -17,7 +17,7 @@ describe('test login module', function(){
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
     var a=browser.findElement(by.buttonText('登录')).click();
-    a.Pending();
+    a.cancel();
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -113,7 +113,6 @@ describe('test login module', function(){
 AlertPromise是指一个带有警报的promise。
 ######cancel
 ```Protractor
-<<<<<<< HEAD
 describe('test login module', function(){
   var time = new Date;
   console.log(time);
@@ -128,14 +127,14 @@ describe('test login module', function(){
     var a=element(by.buttonText('登录'));
     a.click();
     var f =browser.driver.switchTo().alert();
-    f.cancel;
+    f.cancel();
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
   });
 });
 ```
-######visPending
+######isPending
 ```Protractor
 describe('test login module', function(){
   var time = new Date;
@@ -151,7 +150,7 @@ describe('test login module', function(){
     var a=element(by.buttonText('登录'));
     a.click();
     var f =browser.driver.switchTo().alert();
-    f.isPending;
+    f.isPending();
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -199,7 +198,7 @@ describe('test login module', function(){
     var a=element(by.buttonText('登录'));
     a.click();
     var f =browser.driver.switchTo().alert();
-    f.thenCatch;
+    f.thenCatch();
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -222,7 +221,7 @@ describe('test login module', function(){
     var a=element(by.buttonText('登录'));
     a.click();
     var f =browser.driver.switchTo().alert();
-    f.thenFinally;
+    f.thenFinally();
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');

@@ -291,69 +291,23 @@ describe('test zhuye module', function(){
     browser.get('http://www.aihangyun.com/bd/#');
   });
   it('should into my work',function(){
-    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
-    var text=element(by.linkText('我的任务'))  ;
+   var ul1=element.all(by.css('.dropdown-menu scrollable-menu'));
+   var text=element(by.linkText('BDHotel'));
     text.click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl2);
-    var h1=element(by.tagName('h1'));
-    expect(h1.getText()).toBe('酒店列表(0)');
-    var label=element(by.tagName('label'));
-    expect(label.getText()).toBe('排序:');
-    var options=element.all(by.options('field.label for field in orderByFields'));
-    var intems=options.map(function(elem,index){
-      return {
-        index:index
-      }
+    expect(ul1.isDisplayed()).toBeTruthy();
+    var a=ul1.map(function(elem,index){
+    	return{
+    		index
+    	};
     });
-    expect(intems).toEqual([{index: 0},{index:1}]);
-    expect(options.count()).toBe(2);
-    expect(options.get(0).getText()).toBe('名称');
-    expect(options.get(1).getText()).toBe('更新时间');
+    expect(a).toEqual([0]);
   });
 });
+
 ```
 ######reduce()
-```Protractor
-describe('test zhuye module', function(){
-  var time = new Date;
-  console.log(time);
-  var testUrl = '/bd/login';
- beforeEach(function(){
-    var name = 'chenwulin@aihanginns.com';
-    var pwd = 'helloworld';
-    var targetUrl = 'http://www.aihangyun.com/bd/';
-    browser.get(testUrl);
-    element(by.name('email')).sendKeys(name);
-    element(by.name('password')).sendKeys(pwd);
-    element(by.buttonText('登录')).click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl);
-    var h1=element(by.css('.page-header'));
-    expect(h1.getText()).toBe('AiHang Business Development Management Console');
-    browser.get('http://www.aihangyun.com/bd/#');
-  });
-  it('should into my work',function(){
-    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
-    var text=element(by.linkText('我的任务'))  ;
-    text.click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl2);
-    var h1=element(by.tagName('h1'));
-    expect(h1.getText()).toBe('酒店列表(0)');
-    var label=element(by.tagName('label'));
-    expect(label.getText()).toBe('排序:');
-    var options=element.all(by.options('field.label for field in orderByFields'));
-    var intems=options.reduce(function(acc,elem){
-      return elem.getText().then(function(text){
-        return acc + text + '';
-      });
-    },'');
-    
-    expect(intems).toEqual('名称更新时间';
-    expect(options.count()).toBe(2);
-    expect(options.get(0).getText()).toBe('名称');
-    expect(options.get(1).getText()).toBe('更新时间');
-  });
-});
-```
+
+
 ###### evaluate()
 评估输入是否时当前元素的范围。
 
@@ -491,16 +445,81 @@ describe('test zhuye module', function(){
 ```
 ###### isElementPresent()
 和ElementFinder.isPresent()相同
-######  equals()
+######  equals()（有问题）
 比较两个网页元素是否相同。
 ``` Prortractor
-
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ beforeEach(function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    var a=element(by.name('email')).sendKeys(name);
+    var b=element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+    browser.get('http://www.aihangyun.com/bd/#');
+  });
+  it('should into my work',function(){
+    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
+    var text=element(by.linkText('我的任务'))  ;
+    text.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl2);
+    var h1=browser.findElement(by.tagName('h1'));
+    expect(h1.getText()).toBe('酒店列表(0)');
+    var label=browser.findElement(by.tagName('label'));
+    browser.driver.WebElement.equals(h1,label);
+    expect(label.getText()).toBe('排序:');
+    var options=element.all(by.options('field.label for field in orderByFields'));
+    expect(options.count()).toBe(2);
+    expect(options.get(0).getText()).toBe('名称');
+    expect(options.get(1).getText()).toBe('更新时间');
+  });
+});
 
 ```
 ###### getDriver()
 返回这个实例的父驱动。
 ``` Prortractor
-
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ beforeEach(function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    var a=element(by.name('email')).sendKeys(name);
+    var b=element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+    browser.get('http://www.aihangyun.com/bd/#');
+  });
+  it('should into my work',function(){
+    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
+    var text=element(by.linkText('我的任务'))  ;
+    text.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl2);
+    var h1=browser.findElement(by.tagName('h1'));
+    expect(h1.getText()).toBe('酒店列表(0)');
+    var label=browser.findElement(by.tagName('label'));
+    var s=label.getDriver();
+    console.log(s);
+    expect(label.getText()).toBe('排序:');
+    var options=element.all(by.options('field.label for field in orderByFields'));
+    expect(options.count()).toBe(2);
+    expect(options.get(0).getText()).toBe('名称');
+    expect(options.get(1).getText()).toBe('更新时间');
+  });
+});
 
 ```
 ###### getId()
@@ -517,16 +536,11 @@ describe('test login module', function(){
      browser.get(testUrl);
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
-    //var a=element(by.buttonText('登录'));
      var a=element(by.buttonText('登录'));
-    // expect(a.isElementPresent()).toBe(true);
-   //expect(a.getId()).toBe('button');
     a.getId().then(function(location){
        console.log(location);
     });
     a.click();
-
-    //expect(browser.getLocationAbsUrl()).toBe(targetUrl);
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -537,30 +551,168 @@ describe('test login module', function(){
 ###### getRawId()
 返回该元素的原始ID字符串ID.
 ``` Prortractor
-
-
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+     var a=element(by.buttonText('登录'));
+    a.getRawId().then(function(location){
+       console.log(location);
+    });
+    a.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
 ```
 ###### serialize()
 ``` Protractor
-
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ beforeEach(function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    var a=element(by.name('email')).sendKeys(name);
+    var b=element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+    browser.get('http://www.aihangyun.com/bd/#');
+  });
+  it('should into my work',function(){
+    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
+    var text=element(by.linkText('我的任务'))  ;
+    text.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl2);
+    var h1=browser.findElement(by.tagName('h1'));
+    expect(h1.getText()).toBe('酒店列表(0)');
+    var label=browser.findElement(by.tagName('label'));
+    //browser.driver.WebElement.equals(h1,label);
+    label.serialize().then(function(location){
+        console.log(location);
+    });
+    expect(label.getText()).toBe('排序:');
+    var options=element.all(by.options('field.label for field in orderByFields'));
+    expect(options.count()).toBe(2);
+    expect(options.get(0).getText()).toBe('名称');
+    expect(options.get(1).getText()).toBe('更新时间');
+  });
+});
 
 ```
-###### findElement()
+###### findElement()(有问题)
 找到一个元素并在这个元素上发布命令，如果这个元素没有找到，那么此方法无效，在这个元素上发布的命令终止。
 ``` Protractor
-
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    browser.WebElement.findElement(by.name('email')).sendKeys(name);
+    browser.WebElement.findElement(by.name('password')).sendKeys(pwd);
+     var a=element(by.buttonText('登录'));
+    a.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
 
 ```
-###### isElementPresent()
+###### isElementPresent()（不理解）
 返回一个布尔类型的值，确定一个元素是否位于页面上。
 ```Protractor
-
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ beforeEach(function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    var a=element(by.name('email')).sendKeys(name);
+    var b=element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+    browser.get('http://www.aihangyun.com/bd/#');
+  });
+  it('should into my work',function(){
+    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
+    var text=element(by.linkText('我的任务'))  ;
+    text.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl2);
+    var h1=browser.findElement(by.tagName('h1'));
+    expect(h1.isElementPresent(by.tagName('h1'))).toBe(true);
+    expect(h1.getText()).toBe('酒店列表(0)');
+    var label=browser.findElement(by.tagName('label'));
+    expect(label.getText()).toBe('排序:');
+    var options=element.all(by.options('field.label for field in orderByFields'));
+    expect(options.count()).toBe(2);
+    expect(options.get(0).getText()).toBe('名称');
+    expect(options.get(1).getText()).toBe('更新时间');
+  });
+});
 
 ```
 ###### findElements()
-用来寻找一组元素，然后让他们执行命令。
+用来寻找一组满足这个定位要求的元素，然后让他们执行命令。
 ```Protractor
-
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ beforeEach(function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    var a=element(by.name('email')).sendKeys(name);
+    var b=element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+    browser.get('http://www.aihangyun.com/bd/#');
+  });
+  it('should into my work',function(){
+    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
+    var text=element(by.linkText('我的任务'))  ;
+    text.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl2);
+    var h1=browser.findElement(by.tagName('h1'));
+    expect(h1.getText()).toBe('酒店列表(0)');
+    var label=browser.findElement(by.tagName('label'));
+    var s=label.findElements(by.tagName('option'));
+    s.then(function(ad){
+      console.log(ad);
+    });
+    expect(label.getText()).toBe('排序:');
+    var options=element.all(by.options('field.label for field in orderByFields'));
+    expect(options.count()).toBe(2);
+    expect(options.get(0).getText()).toBe('名称');
+    expect(options.get(1).getText()).toBe('更新时间');
+  });
+});
 ```
 ###### click()
 用于点击命令完成时对事件的处理。
