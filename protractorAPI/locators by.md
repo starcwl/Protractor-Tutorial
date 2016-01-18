@@ -25,16 +25,10 @@ Protractor定位器。它提供了很多在Angular应用中寻找元素的方法
 ######addLocator()
 为实例增加一个可以通过by方法找到元素的定位。
 ```Protractor
-// Add the custom locator.
 by.addLocator('buttonTextSimple',
     function(buttonText, opt_parentElement, opt_rootSelector) {
-  // This function will be serialized as a string and will execute in the
-  // browser. The first argument is the text for the button. The second
-  // argument is the parent element, if any.
   var using = opt_parentElement,
       buttons = using.querySelectorAll('button');
-
-  // Return an array of buttons with the text.
   return Array.prototype.filter.call(buttons, function(button) {
     return button.textContent === buttonText;
   });
