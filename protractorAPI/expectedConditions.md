@@ -157,12 +157,18 @@ describe('test login page', function(){
      browser.get(testUrl);
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
-        var EC = protractor.ExpectedConditions;
-browser.wait(EC.elementToBeClickable($('.btn')), 1000);
    element(by.buttonText('登录')).click();
     expect(browser.getCurrentUrl()).toBe(targetUrl);
   });
+ it(' into my work',function(){
+    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
+    var text=element(by.linkText('我的任务'))  ;
+    text.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl2);
+    var EC = protractor.ExpectedConditions;
+browser.wait(EC.elementToBeClickable($('.navbar-brand')), 5000);
  });
+});
 ```
 ######textToBePresentInElement
 检验一个元素中的文本是否显示
@@ -200,7 +206,7 @@ browser.wait(EC.textToBePresentInElement($('.ng-binding'), '(0)'), 5000);
  });
 ```
 ######textToBePresentInElementValue
-一个期望用来检验在一个元素的值中给出的文本是否显示。如果elementFinder没有找到元素返回false
+一个期望用来检验在一个元素的值的文本是否显示。如果elementFinder没有找到元素返回false
 ```Protractor
 describe('test login page', function(){
   var time = new Date;
@@ -213,8 +219,8 @@ describe('test login page', function(){
      browser.get(testUrl);
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
-         var EC = protractor.ExpectedConditions;
-EC.textToBePresentInElementValue($('.btn'), '登录');
+     var EC = protractor.ExpectedConditions;
+browser.wait(EC.textToBePresentInElementValue($('.form-control'), 'chenwulin@aihanginns.com'), 5000);
    element(by.buttonText('登录')).click();
     expect(browser.getCurrentUrl()).toBe(targetUrl);
   });
@@ -223,7 +229,23 @@ EC.textToBePresentInElementValue($('.btn'), '登录');
 ######titleContains
 检验标题中包含的区分大小写的子字符串
 ```Protractor
-
+describe('test login page', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    var EC = protractor.ExpectedConditions;
+browser.wait(EC.titleContains('爱航市场拓展管理系统'), 5000);
+   element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+  });
+ });
 ```
 ######titleIs
 检验页面的标题
@@ -267,7 +289,7 @@ browser.wait(EC.titleIs('爱航市场拓展管理系统'), 5000);
 
 ```
 ######elementToBeSelected
-检验选项被选择
+检验选项被选择(复选框)
 ```Protractor
 
 ```
