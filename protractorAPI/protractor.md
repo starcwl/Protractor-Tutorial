@@ -629,35 +629,596 @@ describe('test login module', function(){
 });
 
 ```
-#####executeScript
+#####executeScript(有问题)
+根据网页的内容执行一个javascript代码，并返回一个代表代码值的promise对象。
+```Protractor
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+  it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    var a=element(by.buttonText('登录'))
+    a.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    browser.driver.executeScript("alert('Hello');");
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####executeAsyncScript(有问题)
+根据网页的上下文执行一个同步的脚本代码，同样返回一个代表代码值的一个promise对象。
+```Protractor
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+  it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    var start = new Date().getTime();
+    browser.driver.executeAsyncScript(
+    'window.setTimeout(arguments[arguments.length - 1], 500);').
+    then(function() {
+      console.log(
+          'Elapsed time: ' + (new Date().getTime() - start) + ' ms');
+    });
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    var a=element(by.buttonText('登录'))
+    a.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    browser.driver.executeScript("alert('Hello');");
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+
+```
+#####call
+执行一个常用方法，并返回一个决定方法结果的promise对象。
+```Protractor
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+
+  it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    var a=element(by.buttonText('登录'))
+    a.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+   it('should into my work',function(){
+    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
+    var text=element(by.linkText('我的任务'))  ;
+    text.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl2);
+    var h1=browser.findElement(by.tagName('h1'));
+    expect(h1.getText()).toBe('酒店列表(0)');
+    var label=browser.findElement(by.tagName('label'));
+    //browser.driver.WebElement.equals(h1,label);
+    expect(label.getText()).toBe('排序:');
+    var options=element.all(by.options('field.label for field in orderByFields'));
+    browser.driver.call(options.count(),options,'a');
+    expect(options.count()).toBe(2);
+    expect(options.get(0).getText()).toBe('名称');
+    expect(options.get(1).getText()).toBe('更新时间');
+  });
+});
+
+```
+#####wait
+等待条件执行。参数是条件和执行条件所需要的时间，条件可以是webdriver.until.Condition，一个常用方法或者是作为一个webdriver.promise.Promise。返回值是条件方法实现的第一真实值或者是超时的拒绝值。
+```Protractor
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+  it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    //var a=element(by.buttonText('登录'))
+    browser.driver.wait(element(by.buttonText('登录')).click(),1000);
+    //a.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####sleep
+设定一个driver的休眠时间。返回一个决定什么时候休眠结束的promise的对象。
+```Protractor
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+  it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    var a=element(by.buttonText('登录'))
+    a.click();
+    browser.driver.sleep(1000);
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####getWindowHandle
+检索当前窗口的处理，返回值为通过当前窗口处理解决的promise对象。
+```protractor
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+
+  it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    var a=element(by.buttonText('登录'))
+    a.click();
+    browser.driver.getWindowHandle().then(function(a){
+      console.log(a);
+    });
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####getAllWindowHandles
+检索当前可获得的窗口处理列表。返回值将会是解决一组窗口处理的promise值。
+```Protractor
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+  it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    var a=element(by.buttonText('登录'))
+    a.click();
+    browser.driver.getAllWindowHandles().then(function(a){
+      console.log(a);
+    });
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####getPageSource
+检索当前页面资源。返回的页面资源是一个不被格式化或者不会逃一样的从浏览器作出相应的资源。
+```Protractor
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+  it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    var a=element(by.buttonText('登录'))
+    a.click();
+    browser.driver.getPageSource().then(function(a){
+      console.log(a);
+    });
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####close(有问题)
+关闭当前窗口的命令。返回值是一个决定什么时候命令完成的promise值。
+```Protractor
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+  it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    var a=element(by.buttonText('登录'))
+    a.click();
+    browser.driver.close();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####get(有问题)
+导航到给的URL地址。返回值是一个决定什么时候文件加载结束的promise的值。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.driver.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+
+```
+#####getCurrentUrl
+检索URL的当前页面。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    //expect(browser.getLocationAbsUrl()).toBe(targetUrl);
+    expect(browser.driver.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####getTitle
+检索当前页面的标题。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    browser.driver.getTitle().then(function(a){
+      console.log(a);
+    });
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####findElement
+找到页面的一个元素，如果元素不能够被找到将会返回一个bot.ErrorCode.NO_SUCH_ELEMENT结果。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=browser.driver.findElement(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+
+```
+#####isElementPresent
+检查一个页面元素是否存在
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+     browser.driver.isElementPresent(by.css('.page-header')).then(function(a){
+      console.log(a);
+    });
+    var h1=browser.driver.findElement(by.css('.page-header'));
+    //var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####findElements
+寻找页面的多个元素。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=browser.driver.findElement(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+ it('should display a manager',function(){
+    var ul1=browser.driver.findElements(by.css('.dropdown-menu'));
+    var text=element(by.linkText('云管理'));
+    text.click();
+   });
+});
+```
+#####takeScreenshot
+得到一个屏幕截图。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    browser.driver.takeScreenshot().then(function(a){
+      console.log(a);
+    });
+    var h1=browser.driver.findElement(by.css('.page-header'));
+    //var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+ it('should display a manager',function(){
+    var ul1=browser.driver.findElements(by.css('.dropdown-menu'));
+    var text=element(by.linkText('云管理'));
+    text.click();
+   });
+});
+```
+#####manage
+返回一个界面选项。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    browser.driver.manager();
+    var h1=browser.driver.findElement(by.css('.page-header'));
+    //var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+ it('should display a manager',function(){
+    var ul1=browser.driver.findElements(by.css('.dropdown-menu'));
+    var text=element(by.linkText('云管理'));
+    text.click();
+   });
+});
+```
+#####navigate(有时候出现超时现象)
+返回实例的导航界面。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var a =browser.driver.navigate();
+    console.log(a);
+    var h1=browser.driver.findElement(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####switch To
+返回这个实例的目标定位界面。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var a =browser.driver.switchTo();
+    console.log(a);
+    var h1=browser.driver.findElement(by.css('.page-header'));
+    //var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####Navigation
+在浏览器历史中的导航界面。
+
+######to
+导航到新的URL的值（有问题）
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var a =browser.driver.Navigation(browser.driver).to(testUrl);
+    console.log(a);
+    var h1=browser.driver.findElement(by.css('.page-header'));
+    //var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+######back(有问题)
+导航到浏览器历史中的上一个网页。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var a =browser.driver.Navigation.back();
+    console.log(a);
+    var h1=browser.driver.findElement(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+######forward（有问题）
+向前移动浏览器历史中的网页地址。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var a =browser.driver.Navigation.forward();
+    console.log(a);
+    var h1=browser.driver.findElement(by.css('.page-header'));
+    //var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+######refresh(有问题)
+刷新当前的网页。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var a =browser.driver.Navigation.refresh();
+    console.log(a);
+    var h1=browser.driver.findElement(by.css('.page-header'));
+    //var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
+```
+#####Options（有问题）
+提供管理浏览器和驱动状态的方法。
+######addCookie
+增加一个网页cookie。
 ```Protractor
 
 ```
-#####executeAsyncScript
-#####call
-#####wait
-#####sleep
-#####getWindowHandle
-#####getAllWindowHandles
-#####getPageSource
-#####close
-#####get
-#####getCurrentUrl
-#####getTitle
-#####findElement
-#####isElementPresent
-#####findElements
-#####takeScreenshot
-#####manage
-#####navigate
-#####switch To
-#####Navigation
-######to
-######back
-######forward
-######refresh
-#####Options
-######addCookie
 ######deleteAllCookies
 ######deleteCookie
 ######logs
