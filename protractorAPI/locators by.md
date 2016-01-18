@@ -33,8 +33,6 @@ by.addLocator('buttonTextSimple',
     return button.textContent === buttonText;
   });
 });
-
-// Use the custom locator.
 element(by.buttonTextSimple('Go!')).click();
 ```
 ######binding()  
