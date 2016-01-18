@@ -227,26 +227,8 @@ describe('test login module', function(){
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
   });
 });
-=======
- this.cancel = goog.bind(alert.cancel, alert);
 ```
-######visPending
-```Protractor
-  this.isPending = goog.bind(alert.isPending, alert);
-```
-######then
-```Protractor
-this.then = goog.bind(alert.then, alert);
-```
-######thenCatch
-```Protractor
-  this.thenCatch = goog.bind(alert.thenCatch, alert);
-```
-######thenFinally
-```Protractor
- this.thenFinally = goog.bind(alert.thenFinally, alert);
->>>>>>> 2c190280b4d93688a0845b9c1b8da5ad52ac6c50
-```
+
 ######getText
 直到promised　警告解决再返回文本
 ```Protractor
