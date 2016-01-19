@@ -172,8 +172,38 @@ describe('test zhuye module', function(){
 });
 ```
 ######last()
+```Protractor
 找到数组中的最后一个元素。
-
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ beforeEach(function(){
+ 	var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+     browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+    browser.get('http://www.aihangyun.com/bd/#');
+  });
+  it('should into my work',function(){
+    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
+    var text=element(by.linkText('我的任务'))  ;
+    text.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl2);
+ 
+    var options=element.all(by.options('field.label for field in orderByFields'));
+    expect(options.count()).toBe(2);
+    expect(options.first().getText()).toBe('名称');
+    expect(options.last().getText()).toBe('更新时间');
+  });
+});
+```
 ###### count()
 这个数组所代表的元素的个数，结果不一定是整型。它返回的是一个Promise对象不能直接用于四则运算。
 ``` Protractor
