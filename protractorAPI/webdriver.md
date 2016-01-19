@@ -102,7 +102,7 @@ describe('test login module', function(){
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
     var a=browser.findElement(by.buttonText('登录')).click();
-    a.getId();
+    a.getId;
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -425,9 +425,28 @@ describe('test login module', function(){
 ```
 ###webdriver.UnhandledAlertError
 
-######getAlertText
+######getAlertText(有问题)
 文本显示未处理的警报
 ```Protractor
-
+describe('test login module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ it('should login with correct account name & password', function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    element(by.name('email')).sendKeys(name);
+    element(by.name('password')).sendKeys(pwd);
+    var a=element(by.buttonText('登录'));
+    a.click();
+    var f =browser.driver.UnhandledAlertError.getAlertText();
+    console.log(f);
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+  });
+});
 ```
 ###webdriver.FileDetector
