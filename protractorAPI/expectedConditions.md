@@ -1,7 +1,7 @@
 ###expectedConditions
 代表一个canned函数库，在预期条件下对protractor是有用的，尤其在处理non-angular应用的时候。每个条件返回一个函数 ，等于一个promise，你可以混合使用and，or，and/or not多个组合条件。你也可以将这些条件和任何你写的其他的条件一起使用
 ######not
-不显示not方法里面的内容
+条件是否定一个结果。
 ```Protractor
 describe('test login page', function(){
   var time = new Date;
@@ -20,15 +20,13 @@ describe('test login page', function(){
  it(' into my work',function(){
     var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
     var EC = protractor.ExpectedConditions;
-var titleIsNotFoo = EC.not(EC.titleIs('Foo'));
-console.log ('***');
-browser.wait(titleIsNotFoo, 5000);
+   var titleIsNotFoo = EC.not(EC.titleIs('爱航酒店地推管理'));
+    browser.wait(titleIsNotFoo, 5000);
   });
  });
-
 ```
 ######and
-显示所有的内容
+用and将两个或者多个条件综合起来，作为判断条件的结果，只要有一个条件结果是false则总的结果就是fase.
 ```Protractor
 describe('test login page', function(){
   var time = new Date;
@@ -57,7 +55,7 @@ browser.wait(EC.and(titleContainsFoo, titleIsNotFooBar), 5000);
  });
 ```
 ######or
-显示or方法中任意一个内容
+用or将两个或者多个条件综合起来，作为判断条件的结果，只要有一个条件结果是true则总的结果就是true.
 ```Protractor
 describe('test login page', function(){
   var time = new Date;
@@ -80,7 +78,7 @@ describe('test login page', function(){
     expect(browser.getCurrentUrl()).toBe(targetUrl2);
     var EC = protractor.ExpectedConditions;
 var titleContainsFoo = EC.titleContains('爱航酒店');
-var titleContainsBar = EC.titleContains('地推管理');
+var titleContainsBar = EC.titleContains('fdsf管理');
 browser.wait(EC.or(titleContainsFoo, titleContainsBar), 5000);
   });
  });
@@ -144,7 +142,7 @@ EC.alertIsPresent();
  });
 ```
 ######elementToBeClickable
-检验一个元素是可见的和能够被点击
+检验一个元素是可见的或者说能够被利用的，例如你可以点击它。
 ```Protractor
 describe('test login page', function(){
   var time = new Date;
@@ -171,7 +169,7 @@ browser.wait(EC.elementToBeClickable($('.navbar-brand')), 5000);
 });
 ```
 ######textToBePresentInElement
-检验一个元素中的文本是否显示
+检查元素的文本是否能够找到。
 ```Protractor
 describe('test login page', function(){
   var time = new Date;
@@ -206,7 +204,7 @@ browser.wait(EC.textToBePresentInElement($('.ng-binding'), '(0)'), 5000);
  });
 ```
 ######textToBePresentInElementValue
-一个期望用来检验在一个元素的值的文本是否显示。如果elementFinder没有找到元素返回false
+一个期望用来检验在一个元素的值的文本是否显示。如果elementFinder没有找到元素返回false。
 ```Protractor
 describe('test login page', function(){
   var time = new Date;

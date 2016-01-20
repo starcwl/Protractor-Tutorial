@@ -441,7 +441,8 @@ describe('test login module', function(){
     element(by.name('password')).sendKeys(pwd);
     var a=element(by.buttonText('登录'));
     a.click();
-    var f =browser.driver.UnhandledAlertError.getAlertText();
+    var f =browser.driver.UnhandledAlertErr
+    or.getAlertText();
     console.log(f);
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
