@@ -335,8 +335,47 @@ describe('test zhuye module', function(){
 });
 
 ```
-######reduce()
+######reduce()(有问题)
+实现一个累加器，通过这个累加器把所需要的参数加到一起，然后统一输出结果。
+```Protractor
+describe('test zhuye module', function(){
+  var time = new Date;
+  console.log(time);
+  var testUrl = '/bd/login';
+ beforeEach(function(){
+    var name = 'chenwulin@aihanginns.com';
+    var pwd = 'helloworld';
+    var targetUrl = 'http://www.aihangyun.com/bd/';
+    browser.get(testUrl);
+    var a=element(by.name('email')).sendKeys(name);
+    var b=element(by.name('password')).sendKeys(pwd);
+    element(by.buttonText('登录')).click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl);
+    var h1=element(by.css('.page-header'));
+    expect(h1.getText()).toBe('AiHang Business Development Management Console');
+    browser.get('http://www.aihangyun.com/bd/#');
+  });
+  it('should into my work',function(){
+    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
+    var text=element(by.linkText('我的任务'))  ;
+    text.click();
+    expect(browser.getCurrentUrl()).toBe(targetUrl2);
+    var h1=browser.findElement(by.tagName('h1'));
+    expect(h1.getText()).toBe('酒店列表(0)');
+    var label=browser.findElement(by.tagName('label'));
+    //browser.driver.WebElement.equals(h1,label);
+    expect(label.getText()).toBe('排序:');
+    var options=element.all(by.options('field.label for field in orderByFields')).reduce(function(acc,elem){
+      return elem.getText().then(function(text){
+        return acc + ' ';
+      });
+    }, '');
+    expect(options).toEqual('dsjf');
+    
+  });
+});
 
+```
 
 ###### evaluate()
 评估输入是否时当前元素的范围。
@@ -455,12 +494,9 @@ describe('test zhuye module', function(){
     var pwd = 'helloworld';
     var targetUrl = 'http://www.aihangyun.com/bd/';
      browser.get(testUrl);
-
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
     element(by.buttonText('登录')).click();
-
-    //expect(browser.getLocationAbsUrl()).toBe(targetUrl);
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -799,13 +835,11 @@ describe('test login module', function(){
   var time = new Date;
   console.log(time);
   var testUrl = '/bd/login';
-
  it('should login with correct account name & password', function(){
     var name = 'chenwulin@aihanginns.com';
     var pwd = 'helloworld';
     var targetUrl = 'http://www.aihangyun.com/bd/';
      browser.get(testUrl);
-
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
     var a=element(by.buttonText('登录'));
@@ -815,8 +849,6 @@ describe('test login module', function(){
 
     })
     a.click();
-
-    //expect(browser.getLocationAbsUrl()).toBe(targetUrl);
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     })
@@ -832,28 +864,22 @@ describe('test login module', function(){
   var time = new Date;
   console.log(time);
   var testUrl = '/bd/login';
-
  it('should login with correct account name & password', function(){
     var name = 'chenwulin@aihanginns.com';
     var pwd = 'helloworld';
     var targetUrl = 'http://www.aihangyun.com/bd/';
      browser.get(testUrl);
-
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
     var a=element(by.buttonText('登录'));
     a.getCssValue().then(function(location){
        console.log(location);
-
     })
     a.click();
-
-    //expect(browser.getLocationAbsUrl()).toBe(targetUrl);
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
      h1.getCssValue().then(function(location){
        console.log(location);
-
     })
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
   });
@@ -867,24 +893,19 @@ describe('test login module', function(){
   var time = new Date;
   console.log(time);
   var testUrl = '/bd/login';
-
  it('should login with correct account name & password', function(){
     var name = 'chenwulin@aihanginns.com';
     var pwd = 'helloworld';
     var targetUrl = 'http://www.aihangyun.com/bd/';
      browser.get(testUrl);
-
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
     var a=element(by.buttonText('登录'));
     expect(a.getText()).toBe('登录');
     a.getAttribute().then(function(location){
        console.log(location);
-
     })
     a.click();
-
-    //expect(browser.getLocationAbsUrl()).toBe(targetUrl);
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -923,23 +944,18 @@ describe('test login module', function(){
   var time = new Date;
   console.log(time);
   var testUrl = '/bd/login';
-
  it('should login with correct account name & password', function(){
     var name = 'chenwulin@aihanginns.com';
     var pwd = 'helloworld';
     var targetUrl = 'http://www.aihangyun.com/bd/';
      browser.get(testUrl);
-
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
     var a=element(by.buttonText('登录'));
     a.getSize().then(function(location){
        console.log(location);
-
     })
     a.click();
-
-    //expect(browser.getLocationAbsUrl()).toBe(targetUrl);
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -954,23 +970,18 @@ describe('test login module', function(){
   var time = new Date;
   console.log(time);
   var testUrl = '/bd/login';
-
  it('should login with correct account name & password', function(){
     var name = 'chenwulin@aihanginns.com';
     var pwd = 'helloworld';
     var targetUrl = 'http://www.aihangyun.com/bd/';
      browser.get(testUrl);
-
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
     var a=element(by.buttonText('登录'));
     a.getLocation().then(function(location){
        console.log(location);
-
     })
     a.click();
-
-    //expect(browser.getLocationAbsUrl()).toBe(targetUrl);
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
@@ -985,20 +996,16 @@ describe('test login module', function(){
   var time = new Date;
   console.log(time);
   var testUrl = '/bd/login';
-
  it('should login with correct account name & password', function(){
     var name = 'chenwulin@aihanginns.com';
     var pwd = 'helloworld';
     var targetUrl = 'http://www.aihangyun.com/bd/';
      browser.get(testUrl);
-
     element(by.name('email')).sendKeys(name);
     element(by.name('password')).sendKeys(pwd);
     var a=element(by.buttonText('登录'));
     expect(a.isEnabled()).toBe(true);
     a.click();
-
-    //expect(browser.getLocationAbsUrl()).toBe(targetUrl);
     expect(browser.getCurrentUrl()).toBe(targetUrl);
     var h1=element(by.css('.page-header'));
     expect(h1.getText()).toBe('AiHang Business Development Management Console');
