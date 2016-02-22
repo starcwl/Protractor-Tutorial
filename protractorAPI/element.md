@@ -74,7 +74,7 @@ describe('test login module', function(){
 ```
  
 ###### all()
-调用此方法可以找到一个把当前元素作为起点的一个新的数组。方法结果返回一个包含当前数组子         元素的新的数组。
+调用此方法可以找到一个把当前元素作为起点的一个新的数组。方法结果返回一个包含当前数组子元素的新的数组。
 ``` Protractor
 describe('test login module', function(){
   var time = new Date;
@@ -264,135 +264,90 @@ $('#ID1').$('#ID2').locator();
 
 ```
 ######each()
-通过each中定义的方法调用数组中的每个元素，然后输出方法的结果。
-``` Protractor
-describe('test zhuye module', function(){
-  var time = new Date;
-  console.log(time);
-  var testUrl = '/bd/login';
- beforeEach(function(){
- 	var name = 'chenwulin@aihanginns.com';
-    var pwd = 'helloworld';
-    var targetUrl = 'http://www.aihangyun.com/bd/';
-     browser.get(testUrl);
-    element(by.name('email')).sendKeys(name);
-    element(by.name('password')).sendKeys(pwd);
-    element(by.buttonText('登录')).click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl);
-    var h1=element(by.css('.page-header'));
-    expect(h1.getText()).toBe('AiHang Business Development Management Console');
-    browser.get('http://www.aihangyun.com/bd/#');
-  });
-  it('should into my work',function(){
-   var ul1=element.all(by.css('.dropdown-menu scrollable-menu'));
-    var text=element(by.linkText('BDHotel'));
-    text.click();
-    expect(ul1.isDisplayed()).toBeTruthy();
-    ul1.each(function(elem,index){
-    	  elem.getText().then(function(text){
-    	  	console.log('***********************');
-    	  	console.log(index,text);
-    	  	console.log('***********************');
-    	  });
-   });
+调用数组中的每个元素执行each()中定义的方法，输出方法的结果。
+
+View
+``` view 
+<ul class="items">
+  <li>First</li>
+  <li>Second</li>
+  <li>Third</li>
+</ul>
+```
+Code
+```
+element.all(by.css('.items li')).each(function(element, index) {
+  // Will print 0 First, 1 Second, 2 Third.
+  element.getText().then(function (text) {
+    console.log(index, text);
   });
 });
 ```
 ######map()
-对ElementArrayFinder的每个元素执行map中的方法，方法中ElementArrayFinder中的元素
-作为第一个变量，元素索引作为第二个变量。
-
+让ElementArrayFinder中的元素执行map方法，回调方法的结果作为第一个参数。索引作为第二个参数。
+view
 ``` Protractor
-describe('test zhuye module', function(){
-  var time = new Date;
-  console.log(time);
-  var testUrl = '/bd/login';
- beforeEach(function(){
-    var name = 'chenwulin@aihanginns.com';
-    var pwd = 'helloworld';
-    var targetUrl = 'http://www.aihangyun.com/bd/';
-    browser.get(testUrl);
-    element(by.name('email')).sendKeys(name);
-    element(by.name('password')).sendKeys(pwd);
-    element(by.buttonText('登录')).click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl);
-    var h1=element(by.css('.page-header'));
-    expect(h1.getText()).toBe('AiHang Business Development Management Console');
-    browser.get('http://www.aihangyun.com/bd/#');
-  });
-  it('should into my work',function(){
-   var ul1=element.all(by.css('.dropdown-menu scrollable-menu'));
-   var text=element(by.linkText('BDHotel'));
-    text.click();
-    expect(ul1.isDisplayed()).toBeTruthy();
-    var a=ul1.map(function(elem,index){
-    	return{
-    		index
-    	};
-    });
-    expect(a).toEqual([0]);
-  });
+<ul class="items">
+  <li class="one">First</li>
+  <li class="two">Second</li>
+  <li class="three">Third</li>
+</ul>
+```
+Code
+```
+var items = element.all(by.css('.items li')).map(function(elm, index) {
+  return {
+    index: index,
+    text: elm.getText(),
+    class: elm.getAttribute('class')
+  };
 });
-
+expect(items).toEqual([
+  {index: 0, text: 'First', class: 'one'},
+  {index: 1, text: 'Second', class: 'two'},
+  {index: 2, text: 'Third', class: 'three'}
+]);
 ```
 ######reduce()(有问题)
 实现一个累加器，通过这个累加器把所需要的参数加到一起，然后统一输出结果。
+view
 ```Protractor
-describe('test zhuye module', function(){
-  var time = new Date;
-  console.log(time);
-  var testUrl = '/bd/login';
- beforeEach(function(){
-    var name = 'chenwulin@aihanginns.com';
-    var pwd = 'helloworld';
-    var targetUrl = 'http://www.aihangyun.com/bd/';
-    browser.get(testUrl);
-    var a=element(by.name('email')).sendKeys(name);
-    var b=element(by.name('password')).sendKeys(pwd);
-    element(by.buttonText('登录')).click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl);
-    var h1=element(by.css('.page-header'));
-    expect(h1.getText()).toBe('AiHang Business Development Management Console');
-    browser.get('http://www.aihangyun.com/bd/#');
+<ul class="items">
+  <li class="one">First</li>
+  <li class="two">Second</li>
+  <li class="three">Third</li>
+</ul>
+```
+code
+```
+var value = element.all(by.css('.items li')).reduce(function(acc, elem) {
+  return elem.getText().then(function(text) {
+    return acc + text + ' ';
   });
-  it('should into my work',function(){
-    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
-    var text=element(by.linkText('我的任务'))  ;
-    text.click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl2);
-    var h1=browser.findElement(by.tagName('h1'));
-    expect(h1.getText()).toBe('酒店列表(0)');
-    var label=browser.findElement(by.tagName('label'));
-    //browser.driver.WebElement.equals(h1,label);
-    expect(label.getText()).toBe('排序:');
-    var options=element.all(by.options('field.label for field in orderByFields')).reduce(function(acc,elem){
-      return elem.getText().then(function(text){
-        return acc + ' ';
-      });
-    }, '');
-    expect(options).toEqual('dsjf');
-    
-  });
-});
+}, '');
+expect(value).toEqual('First Second Third ');
 
 ```
 
 ###### evaluate()
 评估输入是否时当前元素的范围。
-
+view
 ```Protractor
 <span id="foo">{{variableInScope}}</span>
-
+```
+Code
+```
 var value = element(by.id('foo')).evaluate('variableInScope');
 ```
 ######allowAnimation()
 确定动画在当前基础元素中是否允许
-
+code 
 ```Protractor
 element(by.css('body')).allowAnimations(false);
 
 ```
 ####element的方法：
+element 是ElementArrayFinder 中一个简单的单个元素的代表。　　　　　
 ######then()
 访问地层的actionResult ElementFinder。
 
