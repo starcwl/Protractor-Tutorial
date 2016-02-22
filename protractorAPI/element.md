@@ -75,185 +75,108 @@ describe('test login module', function(){
  
 ###### all()
 调用此方法可以找到一个把当前元素作为起点的一个新的数组。方法结果返回一个包含当前数组子元素的新的数组。
+view 
 ``` Protractor
-describe('test login module', function(){
-  var time = new Date;
-  console.log(time);
-  var testUrl = '/bd/login';
-  it('clone',function(){
-  browser.get('http://www.aihangyun.com/bd/#');
-  var ul1=element.all(by.css('nav navbar-nav')).all(by.linkText('我的任务'));
-  var ul2=element.all(by.css('nav navbar-nav'));
-  expect(ul1.count()).toBe(ul2.count());
-  });
-   });
+<div id='id1' class="parent">
+  <ul>
+    <li class="foo">1a</li>
+    <li class="baz">1b</li>
+  </ul>
+</div>
+<div id='id2' class="parent">
+  <ul>
+    <li class="foo">2a</li>
+    <li class="bar">2b</li>
+  </ul>
+</div>
+```
+code
+```
+var foo = element.all(by.css('.parent')).all(by.css('.foo'))
+expect(foo.getText()).toEqual(['1a', '2a'])
+var baz = element.all(by.css('.parent')).all(by.css('.baz'))
+expect(baz.getText()).toEqual(['1b'])
+var nonexistent = element.all(by.css('.parent')).all(by.css('.NONEXISTENT'))
+expect(nonexistent.getText()).toEqual([''])
 ```
 ###### filter()
 通过这个filter方法是为了找到一组符合filter方法的一组元素，因为filter（）不能检索到列表中的  所有元素，所以它一般用于一个网页对象。
+view
 ``` Protractor
-describe('test login module', function(){
-  var time = new Date;
-  console.log(time);
-  var testUrl = '/bd/login';
-  it('clone',function(){
-  browser.get('http://www.aihangyun.com/bd/#');
-  var ul1=element.all(by.css('nav navbar-nav')).filter(function(elem,index){
-      return elem.getTagName().then(function(tagname){
-  		return tagname='li';
-  	});
+<ul class="items">
+  <li class="one">First</li>
+  <li class="two">Second</li>
+  <li class="three">Third</li>
+</ul>
+```
+code
+```
+element.all(by.css('.items li')).filter(function(elem, index) {
+  return elem.getText().then(function(text) {
+    return text === 'Third';
   });
-  });
-   });
+}).first().click();
 ```
 ###### get()
 通过索引找到数组中的一个元素，索引从０开始。
+view
 ``` Protractor
-describe('test zhuye module', function(){
-  var time = new Date;
-  console.log(time);
-  var testUrl = '/bd/login';
- beforeEach(function(){
- 	var name = 'chenwulin@aihanginns.com';
-    var pwd = 'helloworld';
-    var targetUrl = 'http://www.aihangyun.com/bd/';
-     browser.get(testUrl);
-    element(by.name('email')).sendKeys(name);
-    element(by.name('password')).sendKeys(pwd);
-    element(by.buttonText('登录')).click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl);
-    var h1=element(by.css('.page-header'));
-    expect(h1.getText()).toBe('AiHang Business Development Management Console');
-    browser.get('http://www.aihangyun.com/bd/#');
-  });
-  it('should into my work',function(){
-    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
-    var text=element(by.linkText('我的任务'))  ;
-    text.click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl2);
- 
-    var options=element.all(by.options('field.label for field in orderByFields'));
-    expect(options.count()).toBe(2);
-    expect(options.get(0).getText()).toBe('名称');
-    expect(options.get(1).getText()).toBe('更新时间');
-  });
-});
+<ul class="items">
+  <li>First</li>
+  <li>Second</li>
+  <li>Third</li>
+</ul>
+```
+code
+```
+var list = element.all(by.css('.items li'));
+expect(list.get(0).getText()).toBe('First');
+expect(list.get(1).getText()).toBe('Second');
 ```
 ######first()
 找到数组中的第一个元素。
+view
 ``` Protractor
-describe('test zhuye module', function(){
-  var time = new Date;
-  console.log(time);
-  var testUrl = '/bd/login';
- beforeEach(function(){
- 	var name = 'chenwulin@aihanginns.com';
-    var pwd = 'helloworld';
-    var targetUrl = 'http://www.aihangyun.com/bd/';
-     browser.get(testUrl);
-    element(by.name('email')).sendKeys(name);
-    element(by.name('password')).sendKeys(pwd);
-    element(by.buttonText('登录')).click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl);
-    var h1=element(by.css('.page-header'));
-    expect(h1.getText()).toBe('AiHang Business Development Management Console');
-    browser.get('http://www.aihangyun.com/bd/#');
-  });
-  it('should into my work',function(){
-    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
-    var text=element(by.linkText('我的任务'))  ;
-    text.click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl2);
- 
-    var options=element.all(by.options('field.label for field in orderByFields'));
-    expect(options.count()).toBe(2);
-    expect(options.first().getText()).toBe('名称');
-    expect(options.last().getText()).toBe('更新时间');
-  });
-});
+<ul class="items">
+  <li>First</li>
+  <li>Second</li>
+  <li>Third</li>
+</ul>
+```
+code
+
+```
+var first = element.all(by.css('.items li')).first();
+expect(first.getText()).toBe('First');
 ```
 ######last()
-```Protractor
 找到数组中的最后一个元素。
-describe('test zhuye module', function(){
-  var time = new Date;
-  console.log(time);
-  var testUrl = '/bd/login';
- beforeEach(function(){
- 	var name = 'chenwulin@aihanginns.com';
-    var pwd = 'helloworld';
-    var targetUrl = 'http://www.aihangyun.com/bd/';
-     browser.get(testUrl);
-    element(by.name('email')).sendKeys(name);
-    element(by.name('password')).sendKeys(pwd);
-    element(by.buttonText('登录')).click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl);
-    var h1=element(by.css('.page-header'));
-    expect(h1.getText()).toBe('AiHang Business Development Management Console');
-    browser.get('http://www.aihangyun.com/bd/#');
-  });
-  it('should into my work',function(){
-    var targetUrl2='http://www.aihangyun.com/bd/hotel#/my';
-    var text=element(by.linkText('我的任务'))  ;
-    text.click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl2);
- 
-    var options=element.all(by.options('field.label for field in orderByFields'));
-    expect(options.count()).toBe(2);
-    expect(options.first().getText()).toBe('名称');
-    expect(options.last().getText()).toBe('更新时间');
-  });
-});
+```Protractor
+<ul class="items">
+  <li>First</li>
+  <li>Second</li>
+  <li>Third</li>
+</ul>
+```
+code
+```
+var last = element.all(by.css('.items li')).last();
+expect(last.getText()).toBe('Third');
 ```
 ###### count()
 这个数组所代表的元素的个数，结果不一定是整型。它返回的是一个Promise对象不能直接用于四则运算。
 ``` Protractor
-describe('test zhuye module', function(){
-  var time = new Date;
-  console.log(time);
-  var testUrl = '/bd/login';
- beforeEach(function(){
- 	var name = 'chenwulin@aihanginns.com';
-    var pwd = 'helloworld';
-    var targetUrl = 'http://www.aihangyun.com/bd/';
-     browser.get(testUrl);
-    element(by.name('email')).sendKeys(name);
-    element(by.name('password')).sendKeys(pwd);
-    element(by.buttonText('登录')).click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl);
-    var h1=element(by.css('.page-header'));
-    expect(h1.getText()).toBe('AiHang Business Development Management Console');
-    browser.get('http://www.aihangyun.com/bd/#');
-  });
-  it('should into my work',function(){
-  var targetUrl3='http://www.aihangyun.com/bd/student#/';
-    var text=element(by.linkText('学生'));
-    text.click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl3);
-    var startitems=element.all(by.repeater('student in students'));
-    var startitemsCount=startitems.count();
-    //console.log( 'startitemsCount'+startitemsCount);
-    var create=element(by.linkText('新建'));
-    create.click();
-    expect(browser.getCurrentUrl()).toBe('http://www.aihangyun.com/bd/student#/new');
-    element(by.model('student.firstName')).sendKeys('liling');
-    element(by.model('student.lastName')).sendKeys('zhang');
-    element(by.model('student.phone')).sendKeys('123');
-    element(by.model('student.province')).sendKeys('shandong');
-    element(by.model('student.city')).sendKeys('changle');
-    element(by.model('student.county')).sendKeys('zhang');
-    element(by.model('student.address')).sendKeys('china');
-    element(by.model('student.age')).sendKeys('18');
-    element(by.model('student.birth')).sendKeys('1970-01-01T00:00:00.000Z');
-    element(by.model('student.email')).sendKeys('zhang@qq.com');
-    element(by.model('student.school')).sendKeys('univisity');
-    element(by.buttonText('保存')).click();
-    expect(element.all(by.css('.modal-dialog')).isDisplayed()).toBeTruthy();
-    element(by.buttonText('Close')).click();
-    var items=element.all(by.repeater('student in students'));
-    expect(items.count()).toEqual(startitemsCount.then(function(start){
-        return start+1;}));
-  });
-});
+<ul class="items">
+  <li>First</li>
+  <li>Second</li>
+  <li>Third</li>
+</ul>
+```
+code
+
+```
+var list = element.all(by.css('.items li'));
+expect(list.count()).toBe(3);
 ```
 ###### locator()
 返回最相关的定位说明。
@@ -347,7 +270,7 @@ element(by.css('body')).allowAnimations(false);
 
 ```
 ####element的方法：
-element 是ElementArrayFinder 中一个简单的单个元素的代表。　　　　　
+element 是ElementArrayFinder 中一个简单的单个元素的代表。你可以把ElementFinder看作是一个WebElement并对它进行一系列操作，尤其是你可以进行和一系列操作，例如点击等。　　　　　
 ######then()
 访问地层的actionResult ElementFinder。
 
@@ -437,35 +360,21 @@ var child = element(by.css('.parent')).$('.child');
 
 ```
 ######isPresent()
-确定某个元素是否在页面上存在。
-
+确定某个元素是否在页面上存在,不管它是否在页面上呈现出来。它和isDisplayed()的区别是，isDispalyed()必须在页面上呈现出来。
+view
 ```Protractor
-describe('test zhuye module', function(){
-  var time = new Date;
-  console.log(time);
-  var testUrl = '/bd/login';
- beforeEach(function(){
-     var name = 'chenwulin@aihanginns.com';
-    var pwd = 'helloworld';
-    var targetUrl = 'http://www.aihangyun.com/bd/';
-     browser.get(testUrl);
-    element(by.name('email')).sendKeys(name);
-    element(by.name('password')).sendKeys(pwd);
-    element(by.buttonText('登录')).click();
-    expect(browser.getCurrentUrl()).toBe(targetUrl);
-    var h1=element(by.css('.page-header'));
-    expect(h1.getText()).toBe('AiHang Business Development Management Console');
-    browser.get('http://www.aihangyun.com/bd/#');
-  });
-  it('should into my work',function(){
-   var a =element(by.linkText('学生'));
-   expect(a.isPresent()).toBe(true);
-  });
-});
+<span>{{person.name}}</span>
+```
+Code
+```
+// Element exists.
+expect(element(by.binding('person.name')).isPresent()).toBe(true);
 
+// Element not present.
+expect(element(by.binding('notPresent')).isPresent()).toBe(false);
 ```
 ###### isElementPresent()
-和ElementFinder.isPresent()相同
+方法的结果意义和isPresent()相同。但是用法有点不同。
 ######  equals()（有问题）
 比较两个网页元素是否相同。
 ``` Prortractor
